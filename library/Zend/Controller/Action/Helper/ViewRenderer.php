@@ -512,8 +512,14 @@ class Zend_Controller_Action_Helper_ViewRenderer extends Zend_Controller_Action_
         if ($this->getFrontController()->getParam('noViewRenderer')) {
             return;
         }
-
-        $this->initView();
+        $views = APPLICATION_PATH . '/views';
+        if(!file_exists($views))
+        {
+            throw new Zend_Controller_Action_Exception(sprintf('Views folder is not located at assumed %s', 
+                $views));
+        }
+        $this->initView(APPLICATION_PATH . '/views');
+        
     }
 
     /**
